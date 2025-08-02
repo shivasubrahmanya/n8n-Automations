@@ -1,0 +1,133 @@
+{
+  "name": "Order_E-mail_automation",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "17Bmz8tw4a8yBC9Gwi_zlv1PlqaTdvFPPK0YFuwEaXyE",
+          "mode": "list",
+          "cachedResultName": "Customer Orders",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17Bmz8tw4a8yBC9Gwi_zlv1PlqaTdvFPPK0YFuwEaXyE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17Bmz8tw4a8yBC9Gwi_zlv1PlqaTdvFPPK0YFuwEaXyE/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        208
+      ],
+      "id": "a21311d9-41a4-48ae-8360-418e8c6977e3",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "pGzM8XyAFLDrYX0e",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "thammu2359@gmail.com",
+        "subject": "={{ JSON.parse($json[\"response\"]).EmailSubject }}\n",
+        "emailType": "text",
+        "message": "={{ JSON.parse($json[\"response\"]).EmailBody }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        208
+      ],
+      "id": "d04a4459-0dbb-47dc-a2fb-0ada5c63453f",
+      "name": "Send a message",
+      "webhookId": "ff643209-a16d-45e5-b53a-3a666445e6d8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6m8Z5mpLN1hngPlf",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:11434/api/generate",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "=JSON",
+        "body": "={\n  \"model\": \"llama3\",\n  \"stream\": false,\n  \"prompt\": \"You are in charge of client orders. Your job is to summarize new orders in a structured JSON format for email communication.\\n\\nPlease return a JSON response with two fields:\\n- EmailSubject: a short email subject line\\n- EmailBody: a polite, professional email message for the team\\n\\nHere is the information on the new order:\\nOrder ID:{{ $json['Order ID'] }} \\nCustomer Name: {{$json['Customer Name']}}\\nProduct: {{$json['Product']}}\\nQuantity: {{$json['Quantity']}}\\nPrice: {{$json['Price (₹)']}}\\nOrder Date: {{$json['Order Date']}}\\nStatus: {{$json['Status']}}\\n\\nRespond only with JSON, nothing else.\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -16,
+        16
+      ],
+      "id": "7bb41165-9be9-436b-a391-761d4fdc5ec5",
+      "name": "Ollama Model"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Ollama Model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "21827070-a086-4cd5-b12f-e5df949c27c4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "45d8e030216af494e10a69aa0ab9111e8f5444ea9f72e1cabd311a9d97186e43"
+  },
+  "id": "ioIEznxvCwbTJUOl",
+  "tags": []
+}
