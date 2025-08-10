@@ -9,18 +9,18 @@ This repository contains a collection of my custom-built n8n automation workflow
 
 Each `.json` file in this repo represents a single n8n workflow. Filenames are descriptive to help identify their purpose.
 
-   workflows/
-│
-├── sheets-to-email/
-│   └── sheets-to-email.json
-│
-├── api-data-fetcher/
-│   └── api-data-fetcher.json
-│
-├── daily-summary-to-telegram/
-│   └── daily-summary-to-telegram.json
-│
-└── README.md   # optional: document all workflows here
+      workflows/
+      │
+      ├── sheets-to-email/
+      │   └── sheets-to-email.json
+      │
+      ├── api-data-fetcher/
+      │   └── api-data-fetcher.json
+      │
+      ├── daily-summary-to-telegram/
+      │   └── daily-summary-to-telegram.json
+      │
+      └── README.md   # optional: document all workflows here
 
 ---
 
