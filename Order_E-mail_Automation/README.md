@@ -89,9 +89,9 @@ ollama run llama3
 
 ## 🗂️ Project Files
 
-Order_E-mail_automation/
-├── README.md <-- This file
-├── workflow.json <-- n8n workflow JSON
+      Order_E-mail_automation/
+         ├── README.md <-- This file
+         ├── workflow.json <-- n8n workflow JSON
 
 ---
 
