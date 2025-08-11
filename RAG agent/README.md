@@ -1,4 +1,4 @@
-# 📚 Amazon Annual Report RAG Chatbot
+#  RAG Chatbot
 
 This repository contains two **n8n** workflows that together implement a **Retrieval-Augmented Generation (RAG)** system for querying Amazon’s Annual Report.  
 Using **Pinecone**, **Ollama embeddings**, and **Google Gemini**, you can upload a PDF report, store it as vector embeddings, and interact with it via a chatbot.
